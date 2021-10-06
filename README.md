@@ -42,3 +42,4 @@ root                    (project root folder)
 ---
 * # TODO: Add names and emails here
 * Jerry Marollano - jnmarollano@gmail.com
+* Cody Meredith - cmeredit@byui.edu
