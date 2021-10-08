@@ -1,6 +1,6 @@
-from time import sleep
 from game import constants
-
+from game.words import Words
+import random
 
 class Director:
     """A code template for a person who directs the game. The responsibility of 
@@ -23,6 +23,7 @@ class Director:
         self._input_service = input_service
         self._keep_playing = True
         self._output_service = output_service
+
         
     def start_game(self):
         """Starts the game loop to control the sequence of play.
@@ -36,16 +37,23 @@ class Director:
             sleep(constants.FRAME_LENGTH)
 
     def _get_inputs(self):
-        """
+        """Gets the inputs at the beginning of each round of play. In this case,
+        that means getting the desired direction and moving the snake.
         Args:
             self (Director): An instance of Director.
         """
-        pass
-        
-        
-        
+        self.words = self.get_words()
+        self.displayed_words = []
+        self.displayed_words.append(self.words[random.randint(0, len(self.words) - 1)])
 
-        
+
+
+    def get_words(self):
+        f = open("speed/game/words.txt") # if I use this (constants.LIBRARY) this is the error --> TypeError: expected str, bytes or os.PathLike object, not _io.TextIOWrapper
+        word_list = f.read().split('\n')
+        random.shuffle(word_list)
+        return [Words(self, i) for i in word_list if i != '']
+
     def _do_outputs(self):
         """Outputs the important game information for each round of play. In 
         this case, that means checking if there are stones left and declaring 
